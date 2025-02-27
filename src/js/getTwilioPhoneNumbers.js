@@ -48,7 +48,9 @@ const getTwilioPhoneNumbersResursively = async (
   })
   const pages = [...accumulator, currentPage]
 
-  if (currentPage?.data?.next_page_uri) {
+  const nextPage = currentPage?.data?.next_page_uri
+  const phoneNumbersLength = currentPage?.data?.incoming_phone_numbers?.length ?? 0
+  if (nextPage && phoneNumbersLength > 0) {
     return getTwilioPhoneNumbersResursively(authentication, pageSize, pages)
   }
 
